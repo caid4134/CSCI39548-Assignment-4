@@ -4,6 +4,9 @@ import "./App.css";
 
 import Debits from "./components/Debits";
 
+import Credits from "./components/Credits";
+
+
 import axios from "axios";
 
 
@@ -56,8 +59,29 @@ class App extends React.Component {
     
     const newDebit = {description, amount, date}
     balance = balance - amount;
-    debits = [...debits, newDebit]
+    debits = [newDebit, ...debits]
     this.setState({debits: debits, accountBalance: balance})
+  }
+  
+  addCredit = (e) => {
+    //send to credits view via props
+    //updates state based off user input
+    e.preventDefault()
+    let { credits } = this.state
+    let balance = this.state.accountBalance;
+
+    const description  = e.target[0].value
+    const amount  = Number(e.target[1].value)
+    const today = new Date();
+
+    //formatting to match other dates
+    const month = today.getMonth() + 1;
+    const date = today.getFullYear().toString() + "-" + month.toString() + "-" + today.getDate().toString();
+    
+    const newCredit = {description, amount, date}
+    balance = balance + amount;
+    credits = [newCredit, ...credits]
+    this.setState({credits: credits, accountBalance: balance})
   }
 
   render() {
@@ -67,6 +91,7 @@ class App extends React.Component {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/debits" element={<Debits addDebit={this.addDebit} debits={this.state.debits} />} />
+          <Route path="/credits" element={<Credits addCredit={this.addCredit} credits={this.state.credits} />} />
         </Routes>
         <h3>{this.state.accountBalance}</h3>
       </div>
@@ -82,6 +107,9 @@ function Home() {
     <div>
       <h2>Welcome to the homepage!</h2>
       <Link to="/debits">Debits</Link>
+      <br></br>
+      <br></br>
+      <Link to="/credits">Credits</Link>
     </div>
   );
 }

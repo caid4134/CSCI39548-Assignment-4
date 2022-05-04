@@ -38,6 +38,7 @@ class App extends React.Component {
     })
 
     let accountBalance = creditSum - debitSum;
+    accountBalance =Math.trunc(accountBalance*100)/100
     this.setState({debits, credits, accountBalance});
   } 
 
@@ -59,6 +60,7 @@ class App extends React.Component {
     
     const newDebit = {description, amount, date}
     balance = balance - amount;
+    balance = Math.trunc(balance*100)/100;
     debits = [newDebit, ...debits]
     this.setState({debits: debits, accountBalance: balance})
   }
@@ -80,6 +82,7 @@ class App extends React.Component {
     
     const newCredit = {description, amount, date}
     balance = balance + amount;
+    balance = Math.trunc(balance*100)/100;
     credits = [newCredit, ...credits]
     this.setState({credits: credits, accountBalance: balance})
   }

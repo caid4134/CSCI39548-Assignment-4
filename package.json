@@ -3,7 +3,6 @@
   "name": "router-example",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://caid4134.github.io/CSCI39548-Assignment-4",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.0.1",
